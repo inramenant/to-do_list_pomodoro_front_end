@@ -1,53 +1,60 @@
-// src/components/Timer.js
-import React, { useContext, useEffect, useState } from "react";
-import { TimerContext } from "../context/TimerContext";
-import { TaskContext } from "../context/TaskContext";
+import React, { useState, useEffect } from "react";
 
-const Timer = () => {
-  const { tasks } = useContext(TaskContext);
-  const { activeTask, timeLeft, isRunning, mode, startTimer, stopTimer } = useContext(TimerContext);
-  const [time, setTime] = useState(timeLeft);
+const Timer = ({ taskId, isRunning, onToggle, taskStatus }) => {
+  const WORK_TIME = 25; // 25 * 60 (for testing, use 5 sec)
+  const BREAK_TIME = 5; // 5 * 60 (for testing, use 3 sec)
+
+  const [timeLeft, setTimeLeft] = useState(WORK_TIME);
+  const [isWorkSession, setIsWorkSession] = useState(true); // Track Work vs Break
 
   useEffect(() => {
     let timer;
-    if (isRunning && time > 0) {
+    
+    // **STOP TIMER IF TASK IS COMPLETED**
+    if (taskStatus === "Completed") {
+      setTimeLeft(WORK_TIME);
+      onToggle(false); // Stop the timer
+      return;
+    }
+
+    if (isRunning && timeLeft > 0) {
       timer = setInterval(() => {
-        setTime((prevTime) => prevTime - 1);
+        setTimeLeft((prev) => prev - 1);
       }, 1000);
-    } else if (time === 0) {
-      alert(mode === "Work" ? "Time for a break!" : "Back to work!");
-      stopTimer();
+    } else if (isRunning && timeLeft === 0) {
+      clearInterval(timer);
+
+      if (isWorkSession) {
+        if (window.confirm("Work session completed! Start break?")) {
+          setIsWorkSession(false);
+          setTimeLeft(BREAK_TIME);
+        } else {
+          onToggle(false); // Stop the timer
+        }
+      } else {
+        alert("Break is over! Back to work.");
+        setIsWorkSession(true);
+        setTimeLeft(WORK_TIME);
+      }
     }
 
     return () => clearInterval(timer);
-  }, [isRunning, time, mode, stopTimer]);
+  }, [isRunning, timeLeft, taskStatus]);
 
+  // Format time (MM:SS)
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
   };
 
   return (
     <div>
-      <h2>Pomodoro Timer</h2>
-      <p>{mode} Mode</p>
-      <h3>{formatTime(time)}</h3>
-
-      <select onChange={(e) => startTimer(e.target.value)} disabled={isRunning}>
-        <option value="">Select Task</option>
-        {tasks.map((task) => (
-          <option key={task.id} value={task.id}>
-            {task.title}
-          </option>
-        ))}
-      </select>
-
-      {isRunning ? (
-        <button onClick={stopTimer}>Stop</button>
-      ) : (
-        <button onClick={() => startTimer(activeTask)}>Start</button>
-      )}
+      <h3>{isWorkSession ? "Work Time" : "Break Time"}</h3>
+      <p>{formatTime(timeLeft)}</p>
+      <button onClick={() => onToggle(!isRunning)} disabled={taskStatus === "Completed"}>
+        {isRunning ? "Pause" : "Start"}
+      </button>
     </div>
   );
 };

@@ -19,8 +19,16 @@ export const TaskProvider = ({ children }) => {
     localStorage.setItem("filter", filter);
   }, [filter]);
 
-  const addTask = (title, description) => {
-    setTasks([...tasks, { id: Date.now(), title, description, status: "In Progress" }]);
+  const addTask = (title, description, deadline) => {
+    setTasks([...tasks, { id: Date.now(), title, description, deadline: deadline || "No deadline", status: "In Progress" }]);
+  };  
+
+  const updateTask = (taskId, newTitle, newDescription, newDeadline) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, title: newTitle, description: newDescription, deadline: newDeadline } : task
+      )
+    );
   };
 
   const deleteTask = (id) => {
@@ -36,7 +44,7 @@ export const TaskProvider = ({ children }) => {
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, deleteTask, toggleStatus, filter, setFilter }}>
+    <TaskContext.Provider value={{ tasks, addTask, updateTask, deleteTask, toggleStatus, filter, setFilter }}>
       {children}
     </TaskContext.Provider>
   );
