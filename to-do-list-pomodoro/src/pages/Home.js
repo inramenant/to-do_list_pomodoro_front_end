@@ -16,8 +16,7 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h2>Welcome to Task Manager</h2>
+    <div className="home-page">
       <TaskList />
       <button onClick={handleLogout}>Logout</button>
     </div>

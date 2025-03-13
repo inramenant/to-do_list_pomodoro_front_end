@@ -51,7 +51,7 @@ const Timer = ({ taskId, isRunning, onToggle, taskStatus }) => {
   return (
     <div>
       <h3>{isWorkSession ? "Work Time" : "Break Time"}</h3>
-      <p>{formatTime(timeLeft)}</p>
+      <p className="countdown">{formatTime(timeLeft)}</p>
       <button onClick={() => onToggle(!isRunning)} disabled={taskStatus === "Completed"}>
         {isRunning ? "Pause" : "Start"}
       </button>

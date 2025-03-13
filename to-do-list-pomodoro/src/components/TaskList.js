@@ -1,7 +1,7 @@
-// src/components/TaskList.js
 import React, { useContext, useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import Timer from "./Timer";
+import Modal from "./Modal"; 
 
 const TaskList = () => {
   const { tasks, addTask, updateTask, deleteTask, toggleStatus, filter, setFilter } = useContext(TaskContext);
@@ -9,20 +9,32 @@ const TaskList = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editedTask, setEditedTask] = useState({ title: "", description: "" });
   const [runningTaskId, setRunningTaskId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newTask.title.trim() && newTask.description.trim()) {
-      console.log("Submitting Task:", newTask);  // Debugging
+    
+    if (isEditing) {
+      updateTask(editingTaskId, editedTask.title, editedTask.description, editedTask.deadline);
+      setEditingTaskId(null);
+    } else {
       addTask(newTask.title, newTask.description, newTask.deadline);
       setNewTask({ title: "", description: "", deadline: "" });
     }
+  
+    setIsModalOpen(false); // Close modal after action
+    setIsEditing(false); // Reset mode
   };
+  
   
   const handleEdit = (task) => {
     setEditingTaskId(task.id);
-    setEditedTask({ title: task.title, description: task.description, deadline: task.deadline });
+    setEditedTask({ title: task.title, description: task.description, deadline: task.deadline});
+    setIsEditing(true);
+    setIsModalOpen(true);
   };
+  
 
   const handleSave = (taskId) => {
     updateTask(taskId, editedTask.title, editedTask.description, editedTask.deadline);
@@ -44,65 +56,97 @@ const TaskList = () => {
   };
 
   return (
-    <div id="tasklist">
+    <div id="tasklist" className="tasklist-container">
       <h2>Task List</h2>
 
-      <div>
-        <button onClick={() => setFilter("All")} disabled={filter === "All"}>All</button>
-        <button onClick={() => setFilter("In Progress")} disabled={filter === "In Progress"}>In Progress</button>
-        <button onClick={() => setFilter("Completed")} disabled={filter === "Completed"}>Completed</button>
+      {/*Filter Buttons, Header*/}
+      <div className="tasklist-header">
+        <div className="left-buttons">
+          <button onClick={() => setFilter("All")} disabled={filter === "All"}>All</button>
+          <button onClick={() => setFilter("In Progress")} disabled={filter === "In Progress"}>In Progress</button>
+          <button onClick={() => setFilter("Completed")} disabled={filter === "Completed"}>Completed</button>
+        </div>
+        <button className="plus-button" onClick={() => setIsModalOpen(true)}>+</button>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Task Title" value={newTask.title} onChange={(e) => setNewTask({ ...newTask, title: e.target.value })} required />
-        <input type="text" placeholder="Task Description" value={newTask.description} onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} />
-        <input type="date" value={newTask.deadline} 
-          onChange={(e) => setNewTask({ ...newTask, deadline: e.target.value })} />
+      
+      {/* Task Form in Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); setIsEditing(false); }}>
+        <form onSubmit={handleSubmit}>
+          <div className="button-container">
+            <button type="button" className="cancel-btn"onClick={() => { setIsModalOpen(false); setIsEditing(false); }}>Cancel</button>
+            <button type="submit" className="add-btn">{isEditing ? "Save" : "Add"}</button>
+          </div>
 
-        <button type="submit">Add Task</button>
-      </form>
+          <h3>Title</h3>
+          <input 
+            type="text" 
+            placeholder="Task Title" 
+            value={isEditing ? editedTask.title : newTask.title} 
+            onChange={(e) => isEditing 
+              ? setEditedTask({ ...editedTask, title: e.target.value }) 
+              : setNewTask({ ...newTask, title: e.target.value })}
+            required 
+          />
 
-      <ul>
-        {filteredTasks.map((task) => (
-          <li key={task.id}>
-            {editingTaskId === task.id ? (
-              <>
-               <input type="text" value={editedTask.title} onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })} />
-                <input type="text" value={editedTask.description} onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })} />
-                <input type="date" value={editedTask.deadline} onChange={(e) => setEditedTask({ ...editedTask, deadline: e.target.value })} />
+          <h3>Description</h3>
+          <textarea 
+            placeholder="Task Description" 
+            value={isEditing ? editedTask.description : newTask.description} 
+            onChange={(e) => isEditing 
+              ? setEditedTask({ ...editedTask, description: e.target.value }) 
+              : setNewTask({ ...newTask, description: e.target.value })}
+          />
 
-                <button onClick={() => handleSave(task.id)}>Save</button>
-                <button onClick={() => setEditingTaskId(null)}>Cancel</button>
-              </>
-            ) : (
-            <>
-            <h3>{task.title}</h3>
-            <p>{task.description}</p>
-            {task.deadline && <p>Deadline: {formatDate(task.deadline)}</p>}
+          <h3>Deadline</h3>
+          <input 
+            type="date" 
+            value={isEditing ? editedTask.deadline : newTask.deadline} 
+            onChange={(e) => isEditing 
+              ? setEditedTask({ ...editedTask, deadline: e.target.value }) 
+              : setNewTask({ ...newTask, deadline: e.target.value })}
+          />
+        </form>
+      </Modal>
 
-            <p>Status: {task.status}</p>
-            <button onClick={() => handleEdit(task)}>Edit</button>
-            <button onClick={() => toggleStatus(task.id)}>{task.status === "In Progress" ? "Complete" : "Undo"}</button>
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
-            
-            {task.status != "Completed" && 
-            <Timer
-              taskId={task.id}
-              isRunning={runningTaskId === task.id}
-              onToggle={() => handleTimerToggle(task.id)}
-              taskStatus = {task.status}
-            />}
-            
-            
-            </>
-            )}
-          </li>
-        ))}
-      </ul>
+      {/* Task List */}
+      <div className="tasklist-content">
+        <ul className="task-grid">
+          {filteredTasks.map((task) => (
+            <li key={task.id} className="task-card">
+              <div className="task-content">
+                {/* Task Info (Left Side) */}
+                <div className="task-info">
+                  <h3>{task.title}</h3>
+                  <p>{task.description}</p>
+                  {task.deadline && <p className="deadline">Deadline: {formatDate(task.deadline)}</p>}
+                  <hr className="task-divider"/>
+                  
+                  <div className="task-actions">
+                  <button className={`status ${task.status.replace(/\s+/g, '-').toLowerCase()}`} onClick={() => toggleStatus(task.id)}>{task.status === "In Progress" ? "In Progress" : "Completed"} </button>
+                    <button className="edit-btn" onClick={() => handleEdit(task)}>Edit</button>
+                    <button className="delete-btn" onClick={() => deleteTask(task.id)}>Delete</button>
+                  </div>
+                </div>
+
+                {/* Timer (Right Side) */}
+                <div className="task-timer">
+                  {task.status !== "Completed" && (
+                    <Timer
+                      taskId={task.id}
+                      isRunning={runningTaskId === task.id}
+                      onToggle={() => handleTimerToggle(task.id)}
+                      taskStatus={task.status}
+                    />
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-  );
-
-};
+  )
+}
 
 export default TaskList;
-
