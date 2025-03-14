@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/to-do_list_pomodoro_front_end/static/css/main.ebb9802a.css",
+    "main.css": "/to-do_list_pomodoro_front_end/static/css/main.3f12c70e.css",
     "main.js": "/to-do_list_pomodoro_front_end/static/js/main.408088e6.js",
     "static/js/488.48e91ce0.chunk.js": "/to-do_list_pomodoro_front_end/static/js/488.48e91ce0.chunk.js",
     "static/media/alarm.wav": "/to-do_list_pomodoro_front_end/static/media/alarm.436fcc28642512ec721d.wav",
     "service-worker.js": "/to-do_list_pomodoro_front_end/service-worker.js",
     "index.html": "/to-do_list_pomodoro_front_end/index.html",
-    "main.ebb9802a.css.map": "/to-do_list_pomodoro_front_end/static/css/main.ebb9802a.css.map",
+    "main.3f12c70e.css.map": "/to-do_list_pomodoro_front_end/static/css/main.3f12c70e.css.map",
     "main.408088e6.js.map": "/to-do_list_pomodoro_front_end/static/js/main.408088e6.js.map",
     "488.48e91ce0.chunk.js.map": "/to-do_list_pomodoro_front_end/static/js/488.48e91ce0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ebb9802a.css",
+    "static/css/main.3f12c70e.css",
     "static/js/main.408088e6.js"
   ]
 }
