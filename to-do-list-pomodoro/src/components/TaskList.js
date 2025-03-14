@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import Timer from "./Timer";
 import Modal from "./Modal"; 
+import '../styles/TaskList.css';
 
 const TaskList = () => {
   const { tasks, addTask, updateTask, deleteTask, toggleStatus, filter, setFilter } = useContext(TaskContext);

@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-light: #ffffff;
+  --text-color: #000000;
+  --card-bg: #ffffff;
+  --border-color: #ddd;
+  --btn-bg: #007bff;
+  --btn-text: #ffffff;
+  --btn-left-text:#000000;
+  --text-bg:#ffffff;
+}
+
+[data-theme="dark"] {
+  --text-color: #f1f1f1;
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --border-color: #444;
+  --btn-bg: #1f6feb;
+  --btn-text: white;
+  --btn-left-text:#ffffff;
+  --text-bg:#cfcfcf;
+}
+
+.left-buttons button{
+    color: var(--btn-left-text);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Update other components to use CSS variables */
+.task-card {
+  background: var(--card-bg);
+  border-left-color: var(--btn-bg);
+}
+
+.modal-content {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+.logoutbutton{
+    position: fixed;
+    right: 20px; 
+    top: 3%;
+    transform: translateY(-50%);
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+input{
+    background: var(--text-bg);
+}
+textarea{
+    background-color:var(--text-bg) ;
+}
+

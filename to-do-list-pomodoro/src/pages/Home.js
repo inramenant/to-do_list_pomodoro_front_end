@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <TaskList />
-      <button onClick={handleLogout}>Logout</button>
+      <button className="logoutbutton" onClick={handleLogout}>Logout</button>
     </div>
   );
 };
