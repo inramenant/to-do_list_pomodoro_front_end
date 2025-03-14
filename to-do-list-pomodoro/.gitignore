@@ -14,7 +14,8 @@ README.md
 
 # misc
 .DS_Store
-.env.local
+.env.localgit rm --cached README.md
+
 .env.development.local
 .env.test.local
 .env.production.local
