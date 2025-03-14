@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/to-do_list_pomodoro_front_end/static/css/main.bbbf38c2.css",
-    "main.js": "/to-do_list_pomodoro_front_end/static/js/main.1a285d5a.js",
+    "main.css": "/to-do_list_pomodoro_front_end/static/css/main.ebb9802a.css",
+    "main.js": "/to-do_list_pomodoro_front_end/static/js/main.5aaeaa75.js",
     "static/js/488.48e91ce0.chunk.js": "/to-do_list_pomodoro_front_end/static/js/488.48e91ce0.chunk.js",
+    "static/media/alarm.wav": "/to-do_list_pomodoro_front_end/static/media/alarm.436fcc28642512ec721d.wav",
     "service-worker.js": "/to-do_list_pomodoro_front_end/service-worker.js",
     "index.html": "/to-do_list_pomodoro_front_end/index.html",
-    "main.bbbf38c2.css.map": "/to-do_list_pomodoro_front_end/static/css/main.bbbf38c2.css.map",
-    "main.1a285d5a.js.map": "/to-do_list_pomodoro_front_end/static/js/main.1a285d5a.js.map",
+    "main.ebb9802a.css.map": "/to-do_list_pomodoro_front_end/static/css/main.ebb9802a.css.map",
+    "main.5aaeaa75.js.map": "/to-do_list_pomodoro_front_end/static/js/main.5aaeaa75.js.map",
     "488.48e91ce0.chunk.js.map": "/to-do_list_pomodoro_front_end/static/js/488.48e91ce0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bbbf38c2.css",
-    "static/js/main.1a285d5a.js"
+    "static/css/main.ebb9802a.css",
+    "static/js/main.5aaeaa75.js"
   ]
 }
