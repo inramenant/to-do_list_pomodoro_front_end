@@ -1,71 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 :root {
-  --bg-light: #ffffff;
-  --text-color: #000000;
-  --card-bg: #ffffff;
-  --border-color: #ddd;
-  --btn-bg: #007bff;
-  --btn-text: #ffffff;
-  --btn-left-text:#000000;
-  --text-bg:#ffffff;
-}
-
-[data-theme="dark"] {
-  --text-color: #f1f1f1;
-  --bg-color: #121212;
-  --card-bg: #1e1e1e;
-  --border-color: #444;
-  --btn-bg: #1f6feb;
-  --btn-text: white;
-  --btn-left-text:#ffffff;
-  --text-bg:#cfcfcf;
-}
-
-.left-buttons button{
+    --bg-light: #ffffff;
+    --bg-dark: #1a1a1a;
+    --text-color-light: #000000;
+    --text-dark: #ffffff;
+    --card-light: #ffffff;
+    --card-dark: #1e1e1e;
+    --border-light: #cccccc;
+    --border-dark: #444;
+    --btn-light: #4CAF50;
+    --btn-dark: #1f6feb;
+    --yellow-light: #FFEB3B;
+    --yellow-dark: #FFC107;
+    --completed-light: #4CAF50;
+    --completed-dark: #66BB6A;
+  }
+  
+  [data-theme="light"] {
+    --bg-color: var(--bg-light);
+    --text-color: var(--text-dark);
+    --card-bg: var(--card-light);
+    --border-color: #ccc;
+    --btn-bg: #1f6feb;
+    --btn-text: white;
+    --btn-left-text: black;
+    --text-bg: var(--bg-light);
+    --completed: var(--completed-light);
+    --in-progress: var(--yellow-light);
+  }
+  
+  [data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: var(--text-dark);
+    --card-bg: var(--card-dark);
+    --btn-left-text: white;
+    --border-color: #444;
+    --btn-bg: var(--btn-bg);
+    --btn-text: var(--text-dark);
+    --completed: var(--completed-light);
+    --in-progress: var(--yellow-dark);
+  }
+  
+  /* Style Buttons */
+  .left-buttons button {
+    color: gray;
+  }
+  
+  .in-progress button {
+    background: var(--in-progress);
+  }
+  
+  .countdown {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--text-color);
+  }
+  
+  .tasklist-container {
+    background: var(--card-bg);
+    color: var(--text-color);
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 15px;
+  }
+  
+  .modal-content {
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+  }
+  
+  .left-buttons button {
     color: var(--btn-left-text);
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Update other components to use CSS variables */
-.task-card {
-  background: var(--card-bg);
-  border-left-color: var(--btn-bg);
-}
-
-.modal-content {
-  background: var(--card-bg);
-  color: var(--text-color);
-}
-.logoutbutton{
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--btn-left-text);
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+  }
+  
+  .logoutbutton {
     position: fixed;
-    right: 20px; 
-    top: 3%;
-    transform: translateY(-50%);
-    padding: 12px 20px;
+    top: 10px;
+    right: 10px;
+    padding: 10px 15px;
     font-size: 16px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-}
-
-button {
-  background: var(--btn-bg);
-  color: var(--btn-text);
-}
-
-input{
+    background-color: var(--btn-bg);
+    color: var(--text-dark);
+    transition: background 0.3s;
+  }
+  
+  .logoutbutton:hover {
+    background-color: darkred;
+  }
+  
+  .task-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+  }
+  
+  .task-card p {
+    color: var(--text-color);
+  }
+  
+  .task-card .deadline {
+    font-weight: bold;
+    color: var(--in-progress);
+  }
+  
+  .tasklist-container {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
     background: var(--text-bg);
-}
-textarea{
-    background-color:var(--text-bg) ;
-}
-
+    color: var(--text-color);
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cancel-btn {
+    background: #d9534f;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-btn {
+    background: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

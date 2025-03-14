@@ -37,9 +37,11 @@ input {
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #000000;
+  width: 100%;
 }
 textarea {
-  resize: none; /* Prevents resizing */
+  width: 100%;
+  resize: none;
   flex: 1;
   padding: 10px;
   font-size: 16px;

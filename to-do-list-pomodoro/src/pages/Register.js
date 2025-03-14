@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../styles/Register.css'
 
 const Register = () => {
@@ -20,7 +21,7 @@ const Register = () => {
     <input type="password" placeholder="Password" {...register("password")} required />
     <button type="submit">Register</button>
   </form>
-  <p>Already have an account? <a href="/#/login">Login</a></p>
+  <p>Already have an account? <Link to="/login">Login</Link></p>
 </div>
   );
 };
