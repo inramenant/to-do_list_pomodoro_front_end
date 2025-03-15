@@ -15,6 +15,7 @@ const Login = () => {
 
   return (
     <div className="form-container">
+      <h1 className="title">Task Manager with Pomodoro</h1>
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <input type="email" placeholder="Email" {...register("email")} required />

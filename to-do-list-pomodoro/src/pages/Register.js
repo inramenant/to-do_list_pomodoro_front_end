@@ -14,6 +14,7 @@ const Register = () => {
 
   return (
     <div className="form-container">
+      <h1 className="title">Task Manager with Pomodoro</h1>
   <h2>Register</h2>
   <form onSubmit={handleSubmit(onSubmit)} className="form">
     <input type="text" placeholder="Username" {...register("username")} required />

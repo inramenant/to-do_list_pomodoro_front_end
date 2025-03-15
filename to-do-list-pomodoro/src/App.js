@@ -16,14 +16,14 @@ function App() {
     <TaskProvider>
       <TimerProvider>
         <div>
-          <h1 className="title">Task Manager with Pomodoro</h1>
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
           <button className="themebutton" onClick={toggleTheme}>
-            Switch to {theme === "light" ? "Dark" : "Light"} Mode
+            {theme === "light" ? "🌙" : "💡"}
           </button>
         </div>
       </TimerProvider>

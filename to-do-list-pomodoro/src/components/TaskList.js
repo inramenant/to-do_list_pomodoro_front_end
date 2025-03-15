@@ -124,7 +124,7 @@ const TaskList = () => {
                   <hr className="task-divider"/>
                   
                   <div className="task-actions">
-                  <button className={`status ${task.status.replace(/\s+/g, '-').toLowerCase()}`} onClick={() => toggleStatus(task.id)}>{task.status === "In Progress" ? "In Progress" : "Completed"} </button>
+                    <button className={`status-${task.status.replace(/\s+/g, '-').toLowerCase()}`} onClick={() => toggleStatus(task.id)}>{task.status === "In Progress" ? "In Progress" : "Completed"} </button>
                     <button className="edit-btn" onClick={() => handleEdit(task)}>Edit</button>
                     <button className="delete-btn" onClick={() => deleteTask(task.id)}>Delete</button>
                   </div>

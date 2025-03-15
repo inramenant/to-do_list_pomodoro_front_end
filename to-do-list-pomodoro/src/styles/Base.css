@@ -44,9 +44,12 @@
   .left-buttons button {
     color: gray;
   }
-  
-  .in-progress button {
-    background: var(--in-progress);
+
+  .status-in-progress{
+    background-color:  var(--in-progress);
+  }
+  .status-completed{
+    background-color:  var(--completed);
   }
   
   .countdown {
@@ -126,7 +129,7 @@
   
   .task-card .deadline {
     font-weight: bold;
-    color: var(--in-progress);
+    
   }
   
   .tasklist-container {
